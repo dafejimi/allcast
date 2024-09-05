@@ -1,70 +1,138 @@
-# Getting Started with Create React App
+# Bitcoin Price Conversion Widget
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a simple and intuitive Bitcoin price conversion widget that allows users to convert USD to BTC based on real-time data from the CoinGecko API. The widget displays the current Bitcoin price, allows input for USD values, and shows the equivalent amount in Bitcoin along with the timestamp of the last price update.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Demo](#demo)
+- [Features](#features)
+- [Technologies](#technologies)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Folder Structure](#folder-structure)
+- [API Reference](#api-reference)
+- [UI/UX Considerations](#uiux-considerations)
+- [Performance Considerations](#performance-considerations)
+- [Limitations](#limitations)
+- [Future Improvements](#future-improvements)
 
-### `npm start`
+## Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The widget fetches real-time data from CoinGecko and enables users to input USD amounts (up to a maximum of $100,000,000) and convert them into Bitcoin. It shows the latest price of Bitcoin and the timestamp of the last data refresh.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- **Current Bitcoin Price**: Displays the latest Bitcoin price in USD fetched from the CoinGecko API.
+- **USD to BTC Conversion**: Converts any valid USD amount to BTC, up to a maximum of $100,000,000.
+- **Timestamp**: Shows the last updated timestamp for the current Bitcoin price.
+- **User Input Validation**: Ensures the input is a valid number and within the accepted range.
+- **Responsive UI**: The widget is designed with a maximum width of 450px and adapts to various screen sizes.
+- **Performance Optimized**: Debounced input handling and optimized API usage to ensure smooth performance.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies
 
-### `npm run build`
+- **React.js**: For building the component-based UI.
+- **Tailwind CSS**: For rapid and responsive styling.
+- **Axios**: For handling API requests to CoinGecko.
+- **CoinGecko API**: Provides real-time data for Bitcoin price in USD.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
+Ensure you have the following installed:
+- [Node.js](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Steps
 
-### `npm run eject`
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/bitcoin-price-widget.git
+   cd bitcoin-price-widget
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. **Install dependencies**:
+   Using npm:
+   ```bash
+   npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   Or using yarn:
+   ```bash
+   yarn install
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **Start the development server**:
+   Using npm:
+   ```bash
+   npm start
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   Or using yarn:
+   ```bash
+   yarn start
+   ```
 
-## Learn More
+4. Open your browser and navigate to `http://localhost:3000` to see the widget.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- The widget will initially load with the latest Bitcoin price and the last updated timestamp.
+- You can enter a USD amount in the input field (up to a maximum of $100,000,000).
+- The widget will display the converted Bitcoin value and will automatically refresh when the input changes.
+- The Bitcoin price and the last updated timestamp are refreshed each time the page loads.
 
-### Code Splitting
+## Folder Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+├── public          # Public assets
+├── src
+│   ├── components  # Widget component
+│   ├── index.css     # Main app css file
+│   ├── App.js      # Main app file
+│   └── index.js    # Entry point
+├── .gitignore      # Git ignore file
+├── package.json    # Project dependencies and scripts
+└── README.md       # Project documentation
+```
 
-### Analyzing the Bundle Size
+## API Reference
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The widget uses the [CoinGecko API](https://www.coingecko.com/en/api) for fetching the current Bitcoin price in USD.
 
-### Making a Progressive Web App
+### API Endpoint Used:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- `GET /simple/price?ids=bitcoin&vs_currencies=usd`
+  - **Response**:
+    ```json
+    {
+      "bitcoin": {
+        "usd": 42000
+      }
+    }
+    ```
 
-### Advanced Configuration
+## UI/UX Considerations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Responsive Design**: The widget has a maximum width of 450px, making it ideal for embedding in dashboards, sidebars, or mobile views.
+- **Neutral Default Values**: When the app first loads, the input and converted values show neutral placeholders (`"--"`) until the user enters a value.
+- **Error Handling**: Invalid input values (non-numeric, out-of-range) are gracefully handled without breaking the UI.
+- **Consistent Styling**: Tailwind CSS is used to maintain a clean and modern UI.
 
-### Deployment
+## Performance Considerations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Optimized API Calls**: The API call is made once on component load and not repeatedly for each user action.
+- **Input Debouncing**: Input handling is debounced to avoid excessive re-renders and conversions while typing.
+- **Lightweight Component**: The component is designed to be lightweight and doesn't contain unnecessary dependencies.
 
-### `npm run build` fails to minify
+## Limitations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **API Rate Limits**: Since CoinGecko’s free API has rate limits, the widget might fail to fetch the latest data if the limits are exceeded.
+- **Static Conversion**: The conversion relies on the price at the time of the last API call and does not continuously update unless the page is refreshed.
+
+## Future Improvements
+
+- **Loading Indicator**: Add a spinner or loading state while fetching data from the API.
+- **Auto Refresh**: Implement auto-refresh functionality to update the Bitcoin price at regular intervals without refreshing the page.
+- **Error Boundaries**: Improve error handling to catch and display friendly messages in case of API failure.
+- **Dark Mode**: Provide a dark mode option for better user experience in low-light environments.
